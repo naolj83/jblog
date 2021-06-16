@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blog">
+	<insert id="insert" parameterType="blogvo">
+		<![CDATA[
+			insert 
+			  into blog 
+			 values (${id }, #{title }, #{logo } ) 
+		]]>		
+	</insert>
+	
+	
+	<select id="findAll" resultType="blogvo">
+	<![CDATA[
+		select a.id as id, a.name as name, b.id as id, b.title as title, b.logo as logo
+		   from user a, blog b
+		 where a.id = b.id
+	]]>
+	</select>
+	
+
+</mapper>

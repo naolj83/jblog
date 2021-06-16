@@ -22,7 +22,6 @@ public class BlogController {
 */	
 	// /{id}/{categoryNo}/{postNo}
 	// /kickscar/1/10
-	@ResponseBody
 	@RequestMapping({"", "/{pathNo1}", "/{pathNo1}/{pathNo2}"})
 	public String index(
 		@PathVariable("id") String id, 
@@ -42,7 +41,7 @@ public class BlogController {
 		System.out.println("category: " + categoryNo);
 		System.out.println("post: " + postNo);
 		
-		return "BlogController.index";
+		return "/blog/main";
 	}
 	
 	// /{id}/admin/basic
