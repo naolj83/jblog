@@ -1,6 +1,8 @@
 package com.douzone.jblog.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,10 +39,26 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value="login")
+	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String login() {
 		return "user/login";
 	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String login(@ModelAttribute UserVo vo, HttpServletRequest request) {
+		UserVo userVo = userService.getUser(vo.getId(), vo.getPassword());
+		if(userVo == null) {
+			return "user/login";
+		} 
+		// session 처리
+		HttpSession session = request.getSession(true);
+		session.setAttribute("authUser", userVo);
+		
+		return "redirect:/";
+	}
+	
+
+	
 	
 	@RequestMapping(value="logout")
 	public String logout() {

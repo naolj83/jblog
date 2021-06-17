@@ -4,7 +4,7 @@ public class PostVo {
 
 	private Long no;
 	private String title;
-	private String contens;
+	private String contents;
 	private String regDate;
 	private Long categoryNo;
 	
@@ -20,11 +20,11 @@ public class PostVo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContens() {
-		return contens;
+	public String getContents() {
+		return contents;
 	}
-	public void setContens(String contens) {
-		this.contens = contens;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -41,7 +41,7 @@ public class PostVo {
 	
 	@Override
 	public String toString() {
-		return "PostVo [no=" + no + ", title=" + title + ", contens=" + contens + ", regDate=" + regDate
+		return "PostVo [no=" + no + ", title=" + title + ", contents=" + contents + ", regDate=" + regDate
 				+ ", categoryNo=" + categoryNo + "]";
 	}
 	

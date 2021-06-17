@@ -27,24 +27,4 @@
 		]]>
 	</select>
 	
-	<update id="update" parameterType="uservo">
-		<choose>
-			<when test='password == ""'>
-			<![CDATA[
-			update user
-			   set name=#{name }
-			 where id=${id }
-			]]>
-			</when>
-			<otherwise>
-			<![CDATA[
-			update user
-			   set name=#{name },
-			  password=#{password }
-			   where id=${id }
-			]]>
-			</otherwise>
-		</choose>
-	</update>
-	
 </mapper>

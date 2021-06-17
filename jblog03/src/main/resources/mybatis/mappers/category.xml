@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+	<insert id="insert" parameterType="String">
+		<![CDATA[
+			insert 
+			  into category 
+			 values (null, '기타', '기타', sysdate(), #{blogId } ) 
+		]]>		
+	</insert>
+	
+	
+	<select id="findAll" resultType="categoryvo">
+	<![CDATA[
+		select a.id as id, a.title as title, a.logo as logo, b.no as no, b.name as name, b.desc as desc, b.reg_date as regDate, b.blog_id as blogId
+		   from blog a, category b
+		 where a.id = b.blog_id
+	]]>
+	</select>
+	
+	<select id="findByBlogId" resultType="categoryvo" parameterType="String">
+		<![CDATA[
+			select a.id as 'id', a.title as 'title', b.name as 'name', b.desc as 'desc', b.blog_id as 'blogId', b.no as 'no'
+			  from blog a, category b
+		        where a.id=b.blog_id
+		      and a.id=#{blogId }
+		]]>
+	</select>
+
+
+		<insert id="insert2" parameterType="categoryvo">
+		<![CDATA[
+			insert 
+			  into category 
+			 values (null, #{name }, #{desc }, sysdate(), #{blogId } ) 
+		]]>		
+	</insert>
+	
+	
+	
+
+</mapper>
