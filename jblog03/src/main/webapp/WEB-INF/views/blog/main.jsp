@@ -20,16 +20,16 @@
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<h4>Spring Camp 2016 참여기</h4>
+					<h4>${post.title }</h4>
 					<p>
-						"${postVo.contents }"
+						${post.contents }
 					<p>
 				</div>
 				<ul class="blog-list">
 					<c:set var="count" value="${fn:length(list) }" />
-					<c:forEach items="${list }" var="vo" varStatus="status" >
+					<c:forEach items="${postList }" var="vo" varStatus="status" >
 					
-					<li><a href="${pageContext.request.contextPath }/${requestScope.id }/admin/main">${vo.title }</a> <span>${vo.regDate }</span>	</li>
+					<li><a href="${pageContext.request.contextPath }/${requestScope.id }/${vo.categoryNo }/${vo.no }">${vo.title }</a> <span>${vo.regDate }</span>	</li>
 				</c:forEach>
 				</ul>
 			</div>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.douzone.jblog.security.Auth;
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.service.CategoryService;
 import com.douzone.jblog.service.FileUploadService;
@@ -56,12 +57,26 @@ public class BlogController {
 		BlogVo blogvo = blogService.findById(id);
 		model.addAttribute("blogVo", blogvo);
 		
+		List<CategoryVo> categoryList = categoryService.findByBlogId(id);
+		model.addAttribute("categoryList", categoryList);
+		
+		
 		if(pathNo2.isPresent()) {
 			categoryNo = pathNo1.get();
 			postNo = pathNo2.get();
 		} else if(pathNo1.isPresent()) {
 			categoryNo = pathNo1.get();
-		} 
+		} else {
+			categoryNo = categoryList.get(0).getNo();
+		}
+		
+		
+		PostVo post = postService.findByNo(id, categoryNo, postNo);
+		model.addAttribute("post", post);
+		
+		List<PostVo> postList = postService.findByNoAndNo(id, categoryNo);
+		model.addAttribute("postList", postList);
+
 		
 //		System.out.println("id: " + id);
 //		System.out.println("category: " + categoryNo);
@@ -77,6 +92,7 @@ public class BlogController {
 //		return "blog/admin/basic";
 //	}
 
+	@Auth
 	@RequestMapping(value="/admin/basic", method=RequestMethod.GET)
 	public String adminBasic(@PathVariable("id") String id, BlogVo blogVo, Model model) {
 		blogVo = blogService.findById(id);
@@ -84,7 +100,7 @@ public class BlogController {
 
 		return "/blog/admin/basic";
 	}
-	
+	@Auth
 	@RequestMapping(value="/admin/basic", method=RequestMethod.POST)
 	public String adminBasic(@PathVariable("id") String id, BlogVo blogVo, UserVo userVo, MultipartFile logoFile) {
 		String logo = fileUploadService.restore(logoFile);
@@ -93,7 +109,7 @@ public class BlogController {
 		blogService.update(blogVo);
 		return "redirect:/" + id;
 	}
-	
+	@Auth
 	@RequestMapping(value="/admin/category", method=RequestMethod.GET)
 	public String adminCategory(@PathVariable("id") String id, CategoryVo categoryVo, Model model) {
 		List<CategoryVo> list = categoryService.findByBlogId(id);
@@ -103,7 +119,7 @@ public class BlogController {
 
 		return "/blog/admin/category";
 	}
-
+	@Auth
 	@RequestMapping(value="/admin/category", method=RequestMethod.POST)
 	public String adminCategory(@PathVariable("id") String id, CategoryVo categoryVo, BlogVo blogVo) {
 		categoryVo.setBlogId(blogVo.getId());
@@ -111,7 +127,7 @@ public class BlogController {
 
 		return "redirect:/" + id + "/admin/category";
 	}
-	
+	@Auth
 	@RequestMapping(value="/admin/write", method=RequestMethod.GET)
 	public String adminWrite(@PathVariable("id") String id, Long no, Model model) {
 		List<CategoryVo> list = categoryService.findByBlogId(id);
@@ -122,13 +138,19 @@ public class BlogController {
 		
 		return "/blog/admin/write";
 	}
-	
+	@Auth
 	@RequestMapping(value="/admin/write", method=RequestMethod.POST)
 	public String adminWrite(@PathVariable("id") String id, PostVo postVo, CategoryVo categoryVo) {
 		postService.insert(postVo);
 		
-		return "redirect:/" + id;
+		return "redirect:/{id}";
 		
+	}
+	@Auth
+	@RequestMapping(value="/admin/category/delete/{no}", method=RequestMethod.GET)
+	public String delete(@PathVariable("id") String id, @PathVariable("no") Long no, CategoryVo categoryVo) {
+		categoryService.delete(categoryVo.getNo());
+		return "redirect:/" + id + "/admin/category";
 	}
 
 }

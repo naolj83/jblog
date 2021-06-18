@@ -13,8 +13,8 @@
 		<![CDATA[
 		select id, name
 		 from user
-		 where id=#{i }
-		  and password=#{p }
+		 where id=#{id }
+		  and password=#{password }
 		]]>
 	</select>
 
@@ -23,7 +23,7 @@
 		<![CDATA[
 		select id
 		 from user
-		 where name=#{name }
+		 where id=#{id }
 		]]>
 	</select>
 	

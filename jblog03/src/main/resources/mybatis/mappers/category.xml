@@ -23,7 +23,8 @@
 			select a.id as 'id', a.title as 'title', b.name as 'name', b.desc as 'desc', b.blog_id as 'blogId', b.no as 'no'
 			  from blog a, category b
 		        where a.id=b.blog_id
-		      and a.id=#{blogId }
+		      and a.id=#{id }
+				order by b.reg_date desc
 		]]>
 	</select>
 
@@ -36,6 +37,13 @@
 		]]>		
 	</insert>
 	
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			delete
+			  from category
+			 where no=#{no }
+		]]>
+	</delete>
 	
 	
 

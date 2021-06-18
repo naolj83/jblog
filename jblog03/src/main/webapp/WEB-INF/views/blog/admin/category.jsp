@@ -40,7 +40,11 @@
 						<td>${vo.name }</td>
 						<td>10</td>
 						<td>${vo.desc }</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
+						<td>
+							<a href="${pageContext.request.contextPath }/${requestScope.id }/admin/category/delete/${vo.no }">
+							<img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></a>
+							</td>
+					
 					</tr>  
 					</c:forEach>
 				  

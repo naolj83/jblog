@@ -20,8 +20,8 @@ public class UserRepository {
 	
 	public UserVo findByIdAndPassword(String id, String password) {
 		Map<String, String> map = new HashMap<>();
-		map.put("i", id);
-		map.put("p", password);
+		map.put("id", id);
+		map.put("password", password);
 		return sqlSession.selectOne("user.findByIdAndPassword", map);
 	}
 	

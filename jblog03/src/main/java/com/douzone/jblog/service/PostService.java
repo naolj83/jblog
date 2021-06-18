@@ -17,8 +17,12 @@ public class PostService {
 		return postRepository.findAll();
 	}
 	
-	public List<PostVo> findByNo(Long no){
-		return postRepository.findByNo(no);
+	public PostVo findByNo(String id, Long categoryNo, Long postNo){
+		return postRepository.findByNo(id, categoryNo, postNo);
+	}
+
+	public List<PostVo> findByNoAndNo(String id, Long categoryNo){
+		return postRepository.findByNoAndNo(id, categoryNo);
 	}
 	
 	public void insert(PostVo vo) {

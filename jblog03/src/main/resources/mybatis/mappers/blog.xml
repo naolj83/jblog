@@ -9,16 +9,9 @@
 		]]>		
 	</insert>
 	
+
 	
-	<select id="findAll" resultType="blogvo">
-	<![CDATA[
-		select a.id as id, a.name as name, b.id as id, b.title as title, b.logo as logo
-		   from user a, blog b
-		 where a.id = b.id
-	]]>
-	</select>
-	
-	<select id="findById" resultType="blogvo">
+	<select id="findById" resultType="blogvo" parameterType="String">
 		<![CDATA[
 			select a.id as id, a.name as name, b.id as id, b.title as title, b.logo as logo
 			  from user a, blog b
@@ -40,7 +33,8 @@
 		<![CDATA[
 			 where id=#{id }
 		]]>		
-
 	</update>
+	
+	
 
 </mapper>

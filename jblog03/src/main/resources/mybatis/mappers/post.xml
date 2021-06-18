@@ -18,13 +18,30 @@
 	]]>
 	</select>
 	
-	<select id="findByNo" resultType="postvo" parameterType="String">
+	<select id="findByNo" resultType="postvo" parameterType="map">
 		<![CDATA[
 		select a.no as no, a.title as title, a.contents as contents, a.reg_date as regDate, b.no as categoryNo
 		   from post a, category b
 		 where a.category_no = b.no
+		   and b.blog_id=#{id }
 		   and b.no=#{categoryNo }
-		]]>
+		   ]]>
+		   <choose> 
+		   <when test="postNo != 0">and a.no=#{postNo }</when>
+		   <otherwise>order by a.reg_date desc
+           limit 0, 1</otherwise>
+		   </choose>
 	</select>
 
+
+	<select id="findByNoAndNo" resultType="postvo" parameterType="map">
+		<![CDATA[
+		select a.no as no, a.title as title, a.contents as contents, a.reg_date as regDate, b.no as categoryNo
+		   from post a, category b
+		 where a.category_no = b.no
+		   and b.blog_id=#{id }
+		    and b.no=#{categoryNo }
+		  order by a.reg_date desc
+		   ]]>
+	</select>
 </mapper>

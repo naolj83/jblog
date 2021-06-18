@@ -30,4 +30,8 @@ public class CategoryRepository {
 	public List<CategoryVo> findByBlogId(String id) {
 		return sqlSession.selectList("category.findByBlogId", id);
 	}
+	
+	public void delete(Long no) {
+		sqlSession.delete("category.delete", no);
+	}
 }
