@@ -80,4 +80,9 @@ public class UserController {
 //	public String logout() {
 //		return "redirect:/";
 //	}
+	
+	@RequestMapping(value="/joinsuccess", method=RequestMethod.GET)
+	public String joinsucceess() {
+		return "user/joinsuccess";
+	}
 }
