@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blog">
+	<insert id="insert" parameterType="String">
+		<![CDATA[
+			insert 
+			  into blog 
+			 values (#{id }, 'Spring 이야기', '/assets/images/spring-logo.jpg' ) 
+		]]>		
+	</insert>
+	
+
+	
+	<select id="findById" resultType="blogvo" parameterType="String">
+		<![CDATA[
+			select a.id as id, a.name as name, b.id as id, b.title as title, b.logo as logo
+			  from user a, blog b
+		        where a.id=b.id 
+		      and a.id=#{id }
+		]]>
+	</select>
+	
+	
+	
+	<update id="update" parameterType="blogvo">
+		<![CDATA[
+			update blog
+			   set title=#{title }
+		]]>
+		<choose>
+		<when test="logo != null">, logo=#{logo }</when>
+		</choose>
+		<![CDATA[
+			 where id=#{id }
+		]]>		
+	</update>
+	
+	
+
+</mapper>
